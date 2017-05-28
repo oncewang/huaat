@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation=" 
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+           http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/mvc 
+           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd" default-autowire="byName">
+										<!-- 约定优于配置 -->
+	
+	<!-- 
+	Configures a handler for serving static resources such as images, js, and, css files with cache headers optimized for efficient 
+	loading in a web browser. Allows resources to be served out of any path that is reachable via Spring's Resource handling.
+	静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理,http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	-->
+	<mvc:resources mapping="resources/**" location="/resources/"/>
+	<mvc:resources mapping="images/**" location="/images/"/>
+
+	<!-- 
+	对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 
+	-->
+	<context:component-scan base-package="net.huaat.**.web" />
+
+	<!-- 
+	启动Spring MVC的注解功能，完成请求和注解POJO的映射，添加拦截器，类级别的处理器映射 
+	-->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="interceptors">
+            <list>
+                <bean class="net.huaat.system.web.interceptor.SessionInterceptor"/>
+            </list>
+        </property>
+	</bean>
+	
+    <bean id="mappingJacksonHttpMessageConverter"  
+        class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/html;charset=UTF-8</value>  
+            </list>  
+        </property>  
+    </bean>  
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="cacheSeconds" value="0" />
+	    <property name="webBindingInitializer">
+	        <bean class="net.huaat.common.util.MyWebBinding"/>
+	    </property>
+	    <property name="messageConverters">
+	    	<list>
+	    		<ref bean="mappingJacksonHttpMessageConverter"/>
+	    	</list>
+	    </property>
+	</bean>
+	
+	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀
+		InternalResourceViewResolver默认的就是JstlView,这里不用配置viewClass了 
+	-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+	-->
+	
+</beans> 

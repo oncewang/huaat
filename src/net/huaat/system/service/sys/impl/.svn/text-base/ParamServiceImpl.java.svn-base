@@ -1,0 +1,42 @@
+package net.huaat.system.service.sys.impl;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import net.huaat.system.dao.ParamDao;
+import net.huaat.system.pojo.TParam;
+import net.huaat.system.service.sys.ParamService;
+
+import org.springframework.stereotype.Service;
+
+
+/**  
+ * @Description: TODO
+ * @author hialin chen 
+ * @date 2012-11-23 下午1:40:46
+ * @version V1.0  
+ */
+@Service("paramService")
+public class ParamServiceImpl implements ParamService {
+	
+	@Resource
+	private ParamDao paramDao;
+	
+	public List<TParam> getParam(String paramTypeId){
+		return paramDao.getParam(paramTypeId);
+	}
+
+	@Override
+	public Map<String, TParam> getParamMap(String paramTypeId) {
+		Map<String, TParam> paramCache= new HashMap<String, TParam>();
+		List<TParam> list = paramDao.getParam(paramTypeId);
+		for(TParam param:list){
+			paramCache.put(param.getName(), param);
+		}
+		return paramCache;
+	}
+}
+

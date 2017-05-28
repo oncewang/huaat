@@ -1,0 +1,52 @@
+package net.huaat.system.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import net.huaat.common.util.StringUtil;
+import net.huaat.common.util.pagination.Pagination;
+import net.huaat.system.dao.UserDao;
+import net.huaat.system.pojo.TUser;
+
+/**  
+ * @Description: TODO
+ * @author zhiqiang yang 
+ * @date 2012-10-8 下午3:52:18
+ * @version V1.0  
+ */
+@Repository("userDao")
+public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+
+	//数据库层使用的是hql方式
+	@Override
+	public TUser getUserByUserName(String userName) {
+		List<TUser> list = getHibernateTemplate().find("from TUser where name='"+StringUtil.removeAllSpaces(userName)+"'");
+		return list.size()>0?list.get(0):null;
+	}
+
+	@Override
+	public List<TUser> getUserList(Pagination pagination, TUser tUser) {
+		StringBuffer filterStr = new StringBuffer();
+		if (!StringUtil.isEmpty(tUser.getName())) { 
+			filterStr.append(" and a.name='").append(tUser.getName()).append("'");
+		}
+
+		Query queryAll = getSession().createQuery(
+				"select count(id) from TUser a where 1=1 "+ filterStr.toString());
+
+		pagination.setAllCount(((Long) queryAll.uniqueResult()).intValue());
+
+		Query query = getSession().createQuery(
+				"from TUser a where 1=1 "+ filterStr.toString());// + " order by name desc");
+
+		query.setFirstResult(pagination.getHqlFirstResult());
+		query.setMaxResults(pagination.getPageSize());
+
+		return query.list();
+	} 
+
+}
+

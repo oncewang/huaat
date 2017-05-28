@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code
+END
+list.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code/list.ftl
+END
+service.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code/service.ftl
+END
+detail.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code/detail.ftl
+END
+serviceImpl.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code/serviceImpl.ftl
+END
+controller.ftl
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/bas/!svn/ver/78/%E4%BB%A3%E7%A0%81/bestv/WebContent/resources/ftl/code/controller.ftl
+END

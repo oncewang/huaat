@@ -1,0 +1,105 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/jsp/common.jsp" %>
+<script type="text/javascript">
+$(function(){
+	if($("#checkedList").val()!=''){
+		var strArr = $("#checkedList").val().split(",");
+		for(var i=0;strArr!=null&&i<strArr.length;i++){
+			$(":checkbox[value='"+strArr[i]+"']").attr("checked", true);
+		}
+	}
+});
+function setAllCheckBox(obj){
+	if(!obj.checked){
+		$(":checkbox").attr("checked", false); 
+	}else{
+		$(":checkbox").attr("checked", true); 
+	}
+}
+function setTypeCheckBox(obj){
+	var flag = $(obj).attr("flag");
+	if(!obj.checked){
+		$(":checkbox[checkFlag='"+flag+"']").attr("checked", false);
+	}else{
+		$(":checkbox[checkFlag='"+flag+"']").attr("checked", true); 
+	}
+}
+function setCheckBox(obj){
+	var flag = $(obj).attr("checkFlag");
+	if(obj.checked){
+		if(!$(":checkbox[flag='"+flag+"']").checked){
+			$(":checkbox[flag='"+flag+"']").attr("checked", true);
+		}
+	}else{
+		if($(":checked[checkFlag='"+flag+"']").length==0){
+			$(":checkbox[flag='"+flag+"']").attr("checked", false);
+		}
+	}
+}
+</script>
+
+<div class="grid_detail">
+	<form id="TRole_form" method="post">
+		<input type="hidden" name="id" value="${o.id}"/> 
+		<input type="hidden" id="checkedList" name="checkedList" value="${checkedList}"/>
+		<table width="100%">
+			<tr>
+				<td width="30%" style="text-align:right;padding-right:5px;">角色名称:</td>
+				<td>
+					<input type="text" class="easyui-validatebox" name="name" required="true"  value="${o.name}"/>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:right;padding-right:5px;">角色描述:</td>
+				<td>
+					<input type="text" class="easyui-validatebox" name="des"  value="${o.des}"/>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:right;padding-right:5px;">我的桌面:</td>
+				<td>
+					<select id="homePageUrl" class="easyui-combobox"  name="homePageUrl"  panelHeight="80px" style="width:122px;"  required="true"  editable="false"  value="${o.homePageUrl}"  valueField="id"  textField="name" >
+						<option  value=""  >请选择</option>	
+						<option  value="/report/iptv/init"  ${o.homePageUrl=='/report/iptv/init'?'selected':''}>IPTV固定报表</option>
+						<option  value="/report/iptvNew/init"  ${o.homePageUrl=='/report/iptvNew/init'?'selected':''}>IPTV固定报表(新版)</option>
+						
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:right;padding-right:5px;">功能选择:</td>
+				<td>
+					<table style="border: 1px solid #A4BED4; border-collapse: collapse;" cellpadding="0" cellspacing="0">
+						<tr>
+							<td colspan="2" style="border: 1px solid #A4BED4;">
+								全选：<input type="checkbox" name='checkAll' onclick="setAllCheckBox(this)" />
+							</td>
+						</tr>
+						<c:forEach items="${parentList}" var="parentItem">
+						<tr>
+							<td style="border: 1px solid #A4BED4;">
+								<input type="checkbox" id='checkItem' name='checkItem' flag="${parentItem.id}"
+									value='${parentItem.id}' onclick="setTypeCheckBox(this)" />${parentItem.name}
+							</td>
+							<td style="border: 1px solid #A4BED4;">
+								<table>
+									<c:forEach items="${childList}" var="childItem">
+										<c:if test="${parentItem.id==childItem.parentId}">
+											<tr>
+												<td>
+													<input type="checkbox" id='checkItem' name='checkItem' checkFlag="${parentItem.id}" value='${childItem.id}'
+														onclick="setCheckBox(this)"/>${childItem.name}
+												</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</table>
+							</td>
+						</tr>
+						</c:forEach>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

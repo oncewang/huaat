@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" 
+          http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+          http://www.springframework.org/schema/aop 
+          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-autowire="byName">
+		
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
+		<property name="initialSize" value="${initialSize}"/><!-- 连接池启动时候初始值 -->
+		<property name="maxActive" value="${maxActive}"/><!-- 连接池的最大值 -->
+		<property name="maxIdle" value="${maxIdle}"/><!-- 最大空闲值 高峰期过后，连接池慢慢将不用的连接释放一部分，直到maxIdle为止 -->
+		<property name="minIdle" value="${minIdle}"/>
+		 <property name="validationQuery" value="SELECT 1"/>  
+        <property name="testOnBorrow" value="true" />  
+        <property name="testOnReturn" value="false" />  
+		
+	</bean>
+	<!-- 
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+       	<property name="mappingDirectoryLocations">
+         	<list>
+            	<value>classpath:net/huaat/model</value>
+        	</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="hibernateProperties">
+			<props>  
+			 <!-- <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>    -->
+			 	<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.autoReconnect">true</prop> 
+				<!-- 
+				<prop key="hibernate.format_sql" >true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="connection.useUnicode">true</prop>     
+				<prop key="connection.characterEncoding">UTF-8</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+			    <prop key="hibernate.cache.use_query_cache">true</prop> 
+			     -->
+			</props>
+		</property>
+		<property name="packagesToScan" >
+			  <list>
+			        <value>net.huaat.**.pojo.**</value>
+	   		 </list>
+	    </property>
+	</bean>
+	
+	<!--
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+     Declare explicitly, or use <context:annotation-config/> 
+    	<bean id="fileUploadController" class="net.cfwn.web.base.FileUploadController"/>
+	-->
+	
+	
+	
+	<!-- 自动扫描组件，这里要把servlet.xml中配置web下面的 controller组件去除，如果不去除会影响事务管理的。-->
+	<context:component-scan base-package="net.huaat">
+		<context:exclude-filter type="regex" expression="net.huaat.*.web.*"/>
+	</context:component-scan>
+	
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<aop:config>
+		<aop:advisor pointcut="execution(* net.huaat..service..*.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="load*" read-only="true"/>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
+</beans>

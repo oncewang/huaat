@@ -1,0 +1,24 @@
+/* DPI login CSS by lydia */
+body{
+	font-family: tahoma,Arial,ËÎÌו,sans-serif;
+	font-size: 12px;
+	font-family: arial,sans-serif;
+	background-image: url(images/headerback.png);
+	background-repeat: repeat-x;
+	border:0;
+}
+*{margin:0;padding:0;}
+img{border:none;}
+
+.head{
+	width:100%;
+	height:55px;
+}
+.container{
+	margin: auto;
+	width:1160px;
+	overflow: hidden;
+	border:0;
+}
+
+

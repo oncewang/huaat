@@ -1,0 +1,74 @@
+@charset "utf-8";
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, big, cite, code, del, em, font, img, ins, small, strong, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+    margin: 0;
+    padding: 0;
+}
+button, input[type="text"], select, textarea {
+    border: 1px solid #246B95;
+    font: 12px/1.5 tahoma,arial,宋体;
+}
+input[type="button"]{
+	height:25px;
+	line-height:25px;
+    font: 12px/1.5 tahoma,arial,宋体;
+}
+
+img{border:0;}
+li{list-style-type: none;}
+input[type="text"]{
+	width: 100px;
+	border: 1px solid #B2CAE1;
+	height: 18px;
+	line-height: 18px;
+}
+input[type="text"]:hover{border:1px solid #246B95}
+select{width: 102px;border: 1px solid #B2CAE1;height: 22px;}
+select:hover{border:1px solid #246B95}
+.combo input,.combo input[type="text"]:hover{border:1px}
+.combo{width: 122px;border: 1px solid #B2CAE1;;height: 20px;}
+.combo:hover{border:1px solid #246B95}
+.combo input[type="text"]{
+	width: 120px;border: 0px solid #A4BED4;
+	height: 20px;
+	line-height: 20px;
+	max-width: 200px;
+}
+
+.filter{margin-left:5px;margin-right:5px;overflow: auto;color: #444;}
+.filter fieldset{border:1px solid #ccc;background:#f1f1f1;overflow: auto;padding-top:5px}
+.filter legend{margin-left: 5px}
+.filter ul{overflow: auto;float: left;width:auto}
+.filter li{float: left;margin:0px;}
+.helpButton li {float: right;margin-right: 5px;}
+
+
+.grid_outer{overflow: auto;overflow: auto;height: 100%}
+
+.grid_detail{overflow-x: auto;overflow-y: hidden;color: #246B95;margin:0px;border: 0px solid #ccc;background: #f1f1f1;}
+.grid_detail li{margin: 5px;float: left;overflow: inherit;width: 400px}
+.grid_detail label{display: inline-block;width: 150px;text-align: right;float: left;}
+/* .grid_detail input{float: left;} */
+.grid_detail .description{
+	text-align: left;
+	width: 100px;
+	margin-left: 10px;
+}
+
+.pagination select{
+	width:50px;
+}
+.pagination input[type="text"]{
+	width: 60px;
+	
+}
+
+.dialog-content {
+background: #f1f1f1;
+}
+.dialog-button {
+border-top: 1px solid #ccc;
+}
+
+
+.modify_sty{overflow-x: auto;overflow-y: hidden;color: #246B95;margin:5px;border: 1px solid #ccc;background: #f1f1f1;}
+.modify_sty li{margin: 5px;float: left;overflow: inherit;width: 400px}

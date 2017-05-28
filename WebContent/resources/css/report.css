@@ -1,0 +1,21 @@
+ .tabsty {
+				font-family: Arial,Helvetica,"Nimbus Sans L",sans-serif;
+				text-align: center;
+				border-collapse: collapse;
+				border-spacing: 0;
+				font-size: 12px;
+				color: #3b3c3f;
+	}	
+ 
+ .tabsty td{
+		font-size:12px;
+		border: 1px solid #DDD;
+		display: table-cell;
+		vertical-align: inherit;
+		height:30px;
+		 text-align:center;
+	}
+	
+.tabsty_help td{
+		 text-align:left;
+}

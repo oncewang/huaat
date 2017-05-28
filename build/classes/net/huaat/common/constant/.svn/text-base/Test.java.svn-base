@@ -1,0 +1,44 @@
+package net.huaat.common.constant;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import net.huaat.view.util.DateUtil;
+
+public class Test {
+	
+	public final static String dayNames[] = {"星期日","星期一","星期二","星期三","星期四","星期五","星期六"};
+
+	public static Date getdate(String date) throws Exception{ 
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+	return sdf.parse(date); 
+	}
+	public static void main(String[] args) throws Exception { 
+		String str="4321";
+		//System.out.println(str.substring(0,str.length()-4)+","+str.substring(str.length()-4)); 
+		for(int i=3;i<str.length();i+=4){
+			str=str.substring(0,str.length()-i)+","+str.substring(str.length()-i);
+			
+			//System.out.println(i); 
+		}
+		System.out.println(str); 
+		//System.out.println("201306".substring(0,4));
+	}
+	
+	
+
+	public static String getThousandSeparator(Object o){
+		String str="";
+		if(o!=null){
+			str=o.toString();
+			for(int i=3;i<str.length();i+=3){
+				str=str.substring(str.length()-i)+","+str.substring(str.length()-i, str.length());
+			
+			}
+		}
+		
+		return  str;
+	}
+}

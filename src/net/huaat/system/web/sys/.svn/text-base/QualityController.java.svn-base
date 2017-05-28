@@ -1,0 +1,201 @@
+package net.huaat.system.web.sys;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import net.huaat.common.service.BaseGridService;
+import net.huaat.common.util.StringUtil;
+import net.huaat.common.util.pagination.Pagination;
+import net.huaat.common.util.query.QueryParam;
+import net.huaat.common.web.BaseController;
+import net.huaat.system.pojo.TLog;
+import net.huaat.system.pojo.TUser;
+import net.huaat.system.service.sys.QualityService;
+import net.huaat.view.util.DateUtil;
+import net.huaat.view.util.viewUtil;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+@Controller
+@RequestMapping("/sys/quality")
+public class QualityController extends BaseController{
+	@Resource
+	QualityService  qualityService;
+	@Resource
+	BaseGridService baseGridService;
+	
+	@RequestMapping(value="/log/init",method=RequestMethod.GET)
+	public String init(HttpServletRequest request) {
+		
+		request.setAttribute("progressNames",qualityService.getAllProgress());
+		request.setAttribute("start", DateUtil.getPre2Month());
+		request.setAttribute("end", DateUtil.getPre1Day());
+		
+		return "system/quality/log";
+	}
+	
+	@RequestMapping(value="/monitor/init",method=RequestMethod.GET)
+	public String monitorInit(HttpServletRequest request) {
+		
+		request.setAttribute("progressNames",qualityService.getAllProgress());
+		request.setAttribute("start", DateUtil.getPre2Month());
+		request.setAttribute("end", DateUtil.getPre1Day());
+		
+		return "system/quality/monitor";
+	}
+	
+	/**
+	 * 根据条件分页查询
+	 * @param queryParams 查询参数,JSON格式
+	 * @return
+	 */
+	@RequestMapping(value="/log/list",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> list(HttpServletRequest request,String queryParams) {
+		Pagination pagination = new Pagination();
+		pagination.setPageNumber(Integer.valueOf(request.getParameter("page")));
+		pagination.setPageSize(Integer.valueOf(request.getParameter("rows")));
+		List<QueryParam> querList =null;
+		
+		if (!StringUtil.isEmpty(queryParams)) {
+			querList=JSONArray.toList(JSONArray.fromObject(queryParams),new QueryParam(),new JsonConfig()); 
+		}
+		
+		String columns=" dateid,progress_name,ua0001m,ua0002m,ub0001m ";
+		
+		List<Object[]>  list=qualityService.getIncomeList(pagination,columns,querList,"tb_quality_info1");
+		JSONArray array = new JSONArray();
+		JSONArray footer = new JSONArray();
+		for(Object[] obj:list){
+			JSONObject row = new JSONObject();
+			row.put("data0", viewUtil.getDefaultStrIsNull(obj[0]));
+			row.put("data1", viewUtil.getDefaultStrIsNull(obj[1]));
+			row.put("data2", viewUtil.getDefaultStrIsNull(obj[2]));
+			row.put("data3", viewUtil.getDefaultStrIsNull(obj[3]));
+			row.put("data4", viewUtil.getDefaultStrIsNull(obj[4]));
+			array.add(row);
+		}
+
+		map.put("total", pagination.getAllCount());
+		map.put("rows", array);
+		
+		return map;	
+	}
+	
+	@RequestMapping(value="/log/stateList",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> stateList(HttpServletRequest request,String queryParams) {
+		Pagination pagination = new Pagination();
+		pagination.setPageNumber(Integer.valueOf(request.getParameter("page")));
+		pagination.setPageSize(Integer.valueOf(request.getParameter("rows")));
+		List<QueryParam> querList =null;
+		
+		if (!StringUtil.isEmpty(queryParams)) {
+			querList=JSONArray.toList(JSONArray.fromObject(queryParams),new QueryParam(),new JsonConfig()); 
+		}
+		
+		String columns="   to_char(dateid,'yyyy-mm-dd hh24:mi:ss'),batchid,progress_name,qa0001m,qa0002m,qa0003m,to_char(qd0001m,'yyyy-mm-dd hh24:mi:ss') ";
+		List<Object[]>  list=qualityService.getIncomeList(pagination,columns,querList,"tb_quality_info3");
+		JSONArray array = new JSONArray();
+		JSONArray footer = new JSONArray();
+		for(Object[] obj:list){
+			JSONObject row = new JSONObject();
+			row.put("data0", viewUtil.getDefaultStrIsNull(obj[0]));
+			row.put("data1", viewUtil.getDefaultStrIsNull(obj[1]));
+			row.put("data2", viewUtil.getDefaultStrIsNull(obj[2]));
+			row.put("data3", viewUtil.getDefaultStrIsNull(obj[3]));
+			row.put("data4", viewUtil.getDefaultStrIsNull(obj[4]));
+			row.put("data5", viewUtil.getDefaultStrIsNull(obj[5]));
+			row.put("data6", viewUtil.getDefaultStrIsNull(obj[6]));
+			array.add(row);
+		}
+
+		map.put("total", pagination.getAllCount());
+		map.put("rows", array);
+		
+		return map;	
+	}
+	
+	@RequestMapping(value="/log/errorList",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> errorList(HttpServletRequest request,String queryParams) {
+		Pagination pagination = new Pagination();
+		pagination.setPageNumber(Integer.valueOf(request.getParameter("page")));
+		pagination.setPageSize(Integer.valueOf(request.getParameter("rows")));
+		List<QueryParam> querList =null;
+		
+		if (!StringUtil.isEmpty(queryParams)) {
+			querList=JSONArray.toList(JSONArray.fromObject(queryParams),new QueryParam(),new JsonConfig()); 
+		}
+		
+		String columns="  to_char(dateid,'yyyy-mm-dd hh24:mi:ss'),batchid,progress_name,ra0001m,ra0002m  ";
+		
+		List<Object[]>  list=qualityService.getIncomeList(pagination,columns,querList,"tb_quality_info4");
+		JSONArray array = new JSONArray();
+		JSONArray footer = new JSONArray();
+		for(Object[] obj:list){
+			JSONObject row = new JSONObject();
+			row.put("data0", viewUtil.getDefaultStrIsNull(obj[0]));
+			row.put("data1", viewUtil.getDefaultStrIsNull(obj[1]));
+			row.put("data2", viewUtil.getDefaultStrIsNull(obj[2]));
+			row.put("data3", viewUtil.getDefaultStrIsNull(obj[3]));
+			row.put("data4", viewUtil.getDefaultStrIsNull(obj[4]));
+			array.add(row);
+		}
+
+		map.put("total", pagination.getAllCount());
+		map.put("rows", array);
+		
+		return map;	
+	}
+	
+	@RequestMapping(value="/monitor/chart",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> incomequery(HttpServletRequest request,HttpSession session,String dimension,String quota,String queryType,String queryParams) {
+		Map<String,Object> msg = new HashMap<String, Object>();
+		
+		List<QueryParam> querList =null;
+		if(!StringUtil.isEmpty(queryParams)) {
+			querList=JSONArray.toList(JSONArray.fromObject(queryParams),new QueryParam(),new JsonConfig()); 
+		}
+		String table="tb_quality_info3";
+		List<Object[]>  list=qualityService.getListObject(querList,table);
+	
+		String dataxml="<?xml version='1.0' encoding='GBK'?><graph caption='数据质量监控分析' xaxisname='文件时间' yaxisName='行数' rotateYAxisName='0' baseFontSize='10' chartRightMargin='40' bgColor='ffffff' showBorder='0' lineThickness='1' numberScaleValue='10000,10000,10000' numberScaleUnit='万,亿,兆' showValues='0'>";
+		String set=" ";
+		int a=0;
+		if(list!=null){
+			for(Object[] o :list){
+				String name;
+				String value;
+				if(o[0]!=null&&o[1]!=null){
+					name= o[0].toString();
+					value=o[1].toString();
+					set="<set name='"+name+"' value='"+value+"'/>";
+					dataxml +=set;
+					a++;
+				}
+			}
+		}	
+		dataxml+="</graph>";
+		int width=a*15;
+		if(width<1000){
+			width=1000;
+		}
+		msg.put("success",true);
+		msg.put("width", width);
+		msg.put("dataxml", dataxml);			
+		return msg;
+	}
+
+}

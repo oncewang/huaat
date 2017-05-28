@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ include file="/jsp/common.jsp" %>
+<%@ include file="/jsp/commonJs.jsp" %>
+<%@ include file="/jsp/easyui.jsp" %>
+	<head>
+	<title>百视通经营分析系统</title>
+	<meta http-equiv="pragma" content="no-cache"/> 
+	<meta http-equiv="cache-control" content="no-cache"/> 
+	<meta http-equiv="expires" content="0"/>  
+	<script type="text/javascript" src="${path}/resources/js/plugins/jquery.easyui-common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/sys/main.css"/>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/sys/common.css"/>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/sys/head_dpi.css"  />
+	 <link rel="icon" href="${path}/resources/images/earth.png" type="image/x-icon" />
+	 <link rel="shortcut icon" href="${path}/resources/images/earth.png" type="image/x-icon" />
+	<script type="text/javascript" src="${path}/resources/js/system/common.js"></script>
+	<script language="javascript" src="${path}/resources/ui/My97DatePicker/WdatePicker.js"></script>
+<script language="JavaScript" src="${path}/resources/FusionCharts/js/FusionCharts.js"></script>
+	<style type="text/css">
+
+
+</style>
+	
+	<script>
+		$(function(){
+			
+			
+			if("${role.homePageUrl}"!=""){
+				getHomepage("${role.homePageUrl}");
+				//alert('${path}'+'${role.homePageUrl}');
+				//addTab('我的桌面','121','/bestv/report/iptvNew/init','2','zhuomian');
+			}
+			
+	 	});
+			
+		var index = 0;
+		function addTab(name,tabId,url,openType,tabs){
+			index++;
+			var tabs=$('#'+tabs);
+			if(tabs.tabs("exists",name)){
+				tabs.tabs("select",name); 
+			}else{
+				switch(openType){
+					case '1'://html片段方式
+					tabs.tabs('add',{
+						title:name,
+						href:url,
+						closable:true
+					});
+					break;
+					case '2'://iframe方式
+					tabs.tabs('add',{
+						title:name,
+						content:'<iframe name="'+name+'"id="'+tabId+'"src="'+url+'" width="100%" height="100%" frameborder="0" scrolling="auto" ></iframe>',
+						closable:true
+					});
+					break;
+					case '3'://iframe跨应用方式
+						if(url.indexOf("?") > 0 ){
+							url = 'http://' + location.host + '/' + url+'&username=${userName}&areaid=${tUser.areaid}';
+						}else{
+							url = 'http://' + location.host + '/' + url+'?username=${userName}&areaid=${tUser.areaid}';
+						}
+						
+						tabs.tabs('add',{
+							title : name,
+							content : '<iframe name="' + name + '"id="'	+ tabId	+ '"src="' + url + '" width="100%" height="500" frameborder="0" scrolling="auto" ></iframe>',
+							closable:true
+						});
+						break;
+					default:
+					alert("types not supported");
+				}
+			}
+			
+		}
+		
+		
+		function getHomepage(url){
+			$.ajax({
+				type: "get",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+				url: "${path}"+url,
+				cache:false,
+				dataType:"html",
+				success: function(msg){
+					$("#tab_desktop").empty().html(msg);
+				
+				}
+			});
+		}
+		
+	</script>
+</head>
+<body >
+	<div   class="container" >
+		<div class="head " >
+			<ul >
+				<li class="logo" style=""><span style="font-size:24px;color:#63666a"> <img  width="150px" height="40px"   src="${path}/resources/images/bestv.png" /> </span><span style="margin-left:-10px;margin-top:0px; line-height:40px;font-size:25px;color:#63666a"> 百视通经营分析系统 </span></li>
+				<li class="menu01">欢迎你,${userName}!
+					&nbsp;&nbsp;|&nbsp;&nbsp;<a
+					href="${path}/system/login/out" style="color: #63666a">注销 </a>
+				</li>
+			</ul>
+		</div>
+
+		<div  id="main-tabs" class="easyui-tabs"     data-options="border:true,
+			 	onSelect:function(title,index){}
+			" >
+			<div id="tab_desktop"  style="height:800px;"   title="<img   style='margin-top:5px;margin-right:5px;width:16px;'  src='/bestv/resources/images/tabs/home.png'>我的桌面">
+				<div  id="zhuomian" style="height:800px">
+				
+				</div>
+			</div>
+			<%-- <div id="tab_menu" title="<img   style='margin-top:5px;margin-right:5px;width:16px;'  src='/bestv/resources/images/tabs/home.png'>菜单代码">
+				<c:out value="${menu}" escapeXml="true"/>
+			</div> --%> 
+			<c:out value="${menu}" escapeXml="false"/>
+			
+    	</div>
+    	
+	</div>
+</body>
+</html>

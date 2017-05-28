@@ -1,0 +1,26 @@
+package net.huaat.system.dao.impl;
+
+import java.util.List;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import net.huaat.common.util.StringUtil;
+import net.huaat.system.dao.ParamDao;
+import net.huaat.system.pojo.TParam;
+
+
+/**  
+ * @Description: TODO
+ * @author hailin chen  
+ * @date 2012-11-23 下午1:46:23
+ * @version V1.0  
+ */
+@Repository("paramDao")
+public class ParamDaoImpl extends HibernateDaoSupport implements ParamDao {
+	
+	public List<TParam> getParam(String paramTypeId){
+		return getHibernateTemplate().find("from TParam where paramTypeId='"+StringUtil.removeAllSpaces(paramTypeId)+"' order by updateTime desc");
+	}
+}
+

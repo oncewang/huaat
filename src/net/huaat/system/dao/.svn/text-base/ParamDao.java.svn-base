@@ -1,0 +1,21 @@
+package net.huaat.system.dao;
+
+import java.util.List;
+
+import net.huaat.system.pojo.TParam;
+
+/**  
+ * @Description: TODO
+ * @author hailin chen  
+ * @date 2012-11-23 下午1:45:18
+ * @version V1.0  
+ */
+public interface ParamDao {
+	
+	/**
+	 * 根据参数类型ID获得参数
+	 *
+	 */
+	public List<TParam> getParam(String paramTypeId);
+}
+

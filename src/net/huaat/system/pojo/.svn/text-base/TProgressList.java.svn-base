@@ -1,0 +1,83 @@
+package net.huaat.system.pojo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "t_progress_list")
+public class TProgressList  implements java.io.Serializable {
+	private String id;
+	private String progressName;
+	private String des;
+	private String areaId;
+	private Integer levelType;
+	private Integer techType;
+	
+	public TProgressList(){
+		
+	}
+	
+	public TProgressList(String id,String progressName,String des,String areaId,Integer levelType,Integer techType){
+		this.id=id;
+		this.progressName=progressName;
+		this.des=des;
+		this.areaId=areaId;
+		this.levelType=levelType;
+		this.techType=techType;
+		
+	}
+	@Id
+	@Column(name = "id", unique = true, nullable = false)
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	@Column(name = "progress_name", length = 200)
+	public String getProgressName() {
+		return progressName;
+	}
+
+	public void setProgressName(String progressName) {
+		this.progressName = progressName;
+	}
+	@Column(name = "des", length = 200)
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+	@Column(name = "area_id", length = 5)
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
+	}
+	@Column(name = "level_type", length = 2)
+	public Integer getLevelType() {
+		return levelType;
+	}
+
+	public void setLevelType(Integer levelType) {
+		this.levelType = levelType;
+	}
+	@Column(name = "tech_type", length = 2)
+	public Integer getTechType() {
+		return techType;
+	}
+
+	public void setTechType(Integer techType) {
+		this.techType = techType;
+	}
+	
+	
+	
+}

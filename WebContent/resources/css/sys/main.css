@@ -1,0 +1,432 @@
+.body-sty{
+	font-family: arial,sans-serif;
+	font-size: 12px;
+	background-image: url(images/headerback.png);
+	background-repeat: repeat-x;
+	
+	font: normal 12px/1.5 Arial,'\5b8b\4f53';
+	color: #444;
+}
+.container{
+	margin: auto;
+	width:100%;
+	overflow: hidden;
+}
+
+
+#foot {
+	height: 0px;
+	background-color: #E0ECFF;
+	padding-top: 5px;
+}
+
+.footer {
+	text-align: center;
+	font-family: Arial;
+	font-size: 12px;
+	color: #055ea3;
+}
+
+.easyui-tree li a:HOVER {
+	text-decoration: none;
+}
+
+
+.accordion .accordion-header {
+background: #DFDDDF;
+color:#032D86;
+background-repeat: no-repeat;
+height:34px;
+line-height:34px;
+padding-left:10px;
+cursor: pointer;
+}
+
+.accordion .panel-tool {
+padding:10px;
+}
+
+.accordion {
+background: none;
+overflow: hidden;
+}
+
+
+
+.panel-body-noheader {
+border-top-width: 0;
+}
+
+.tab-selected span{
+	color: red;
+}
+
+
+ .body-sty .tabs-header {
+border: 0;
+background: none;
+height:42px;
+background-repeat: no-repeat;
+background-position: right;
+position: relative;
+overflow: hidden;
+padding: 0px;
+padding-top: 2px;
+overflow: hidden;
+}
+
+
+
+ .body-sty .tabs li {
+border:0;
+border-radius: 0 0 0 0;
+width:auto;
+height:30px;
+line-height:30px;
+padding-top:10px;
+}
+
+ .body-sty .tabs-title {
+font-size:14px;
+
+}
+
+ .body-sty .tabs li a.tabs-inner {
+color: #e1e5f2;
+background: none;
+line-height:30px;
+}
+
+ .body-sty .tabs li.tabs-selected a.tabs-inner {
+color: #fff;
+font-weight: bold;
+font-size:14px;
+border-radius: 0 0 0 0;
+background: none;
+line-height:30px;
+}
+
+ .body-sty .tabs li.tabs-selected {
+border: 0;
+
+}
+
+ .body-sty .tabs li a.tabs-inner:hover {
+background: none;
+color: #fff;
+text-decoration:underline;
+line-height:30px;
+}
+
+ .body-sty .tabs-container{
+ background-color: transparent;
+}
+
+
+ .body-sty .tabs {
+list-style-type: none;
+height: 36px;
+margin: 0px;
+padding: 0px;
+padding-left: 4px;
+font-size: 26px;
+min-width:680px;
+border:0;
+}
+
+
+
+
+
+ .body-sty .tabs-wrap {
+	margin-top:0px;
+}
+
+
+.panel-header {
+color: #15428b;
+position: relative;
+border: 1px solid #fff;
+
+
+}
+
+.panel-body {
+overflow: auto;
+background-image: url('../../images/body.png');
+background-repeat: repeat;
+border: 0;
+color: #15428b;
+}
+
+
+a{
+text-decoration: none;
+color: #15428b;
+}
+a:link {
+text-decoration: none;
+color: #15428b;
+}
+
+a:hover {
+	color:#15428b;
+}
+a:visited {
+text-decoration: none;
+color: #3e3e3e;
+}
+.tree-node-selected {
+background: none;
+font-weight:bold;
+}
+
+.accordion-body {
+background:#f9f9f9;
+padding-top:10px;
+padding-bottom:10px;
+}
+
+.tree-file {
+background: none;
+width:16;
+}
+
+.tree-folder {
+width: 0px;
+background: none;
+}
+
+.tree-collapsed {
+margin-left:16px;
+}
+
+.tree-expanded {
+margin-left:16px;
+}
+
+.mytablesty {
+				font-family: Arial,Helvetica,"Nimbus Sans L",sans-serif;
+				text-align: center;
+				border-collapse: collapse;
+				border-spacing: 0;
+				font-size: 12px;
+				color: #3b3c3f;
+	}
+		
+		.mytablesty td{
+		font-size:12px;
+		border: 1px solid #DDD;
+		display: table-cell;
+		vertical-align: inherit;
+		height:25px;
+		 text-align:center;
+	}
+	
+	
+.tab-styl  .tabs-wrap {
+margin-top: 0;
+}
+
+
+.tab-styl .tabs {
+list-style-type: none;
+height: 38px;
+padding-top: 0px;
+padding-left: 4px;
+margin: auto;
+margin-top:0px;
+border:0;
+}
+.tab-styl .tabs li{
+padding-top:5px;
+}
+
+
+.tab-styl .tabs-header {
+border: 0;
+background: #DFDDDF;
+color: #444;
+height:42px;
+margin-top:0;
+border-bottom: 1px solid #eee;
+}
+
+.tab-styl .tabs-title {
+color: #032D86;
+font-size:12px;
+background: none;
+
+}
+
+
+.grid-a-sty a:link{text-decoration:none;color:red}
+.grid-a-sty  a:visited{text-decoration:none;color:red}
+.grid-a-sty a:hover{text-decoration:underline;color:red;font-weight:bold}
+.grid-a-sty  a:active{text-decoration:underline;color:red}
+
+
+.tabs li.tabs-selected a.tabs-inner {
+color: #416AA3;
+font-weight: bold;
+background: #fff;
+outline: none;
+}
+
+.tabs li a.tabs-inner:hover {
+background: #ccc;
+}
+
+.tabs li.tabs-selected {
+border: 1px solid #ACAAAA;
+border-bottom: 1px solid #fff;
+}
+
+.tabs li {
+border: 1px solid #ACAAAA;
+}
+.tabs-header {
+background: #eee;
+}
+.tabs li a.tabs-inner{
+background:#F2F0F0;
+}
+.tabs {
+list-style-type: none;
+border-bottom: 2px solid #ddd;
+}
+
+.window {
+background:#E1E0E0;
+border: 1px solid  #C1BEBE;
+}
+
+.panel-title {
+    background:none;
+}
+
+.window .window-body {
+background: #fff;
+border: 1px solid #C1BEBE;
+border-top-width: 0px;
+}
+
+.panel-header-noborder {
+border-width: 0px;
+border-bottom: 1px solid #C1BEBE;
+}
+
+.highchart-legend  rect{
+width:150px;
+height:30px;
+
+}
+
+.tab-styl .tabs li a.tabs-close {
+margin-left:20px;
+margin-top:8px;
+}
+
+.hide-header .tabs-header {
+display:none;
+}
+
+.datagrid-body a{
+	color:red;
+}
+
+.tab-inner  .tabs-header {
+display:block;
+}
+
+.tab-inner .tabs {
+height: 30px;
+}
+
+.tab-inner  .tabs-header {
+height: 32px;
+}
+
+.tab-inner .tabs li{
+padding-top: 0px;
+}
+
+.tab-inner .tabs li.tabs-selected {
+background-color:#fff;
+border-radius: 5px 5px 0px 0px;
+}
+.tab-inner  a:visited {
+text-decoration: none;
+color: #3e3e3e;
+}
+
+.tab-inner  a:link {
+text-decoration: underline;
+color: #15428b;
+}
+
+.tab-inner a:hover {
+color: #15428b;
+}
+
+fieldset dt{
+			width:55px;
+			float:left;
+			text-align:right;
+			margin-top:2px;
+		}
+fieldset dd{
+			float:left;
+			margin: 0px;
+			margin-left:5px;
+			width:105px;
+		}
+fieldset dl {
+		    float: left;
+		    margin: 0px 0px 0px 0px;
+		    padding: 5px 0px 5px 0px;
+		}
+.add_dd{
+	width:270px;
+}
+
+
+.a_pinggu {
+text-decoration: none;
+display: inline-block;
+overflow: hidden;
+margin: 0;
+padding: 0;
+cursor: pointer;
+outline: none;
+text-align: center;
+vertical-align: middle;
+padding:5px 10px 5px 10px;
+}
+
+.a_pinggu{
+color: #444;
+background: #fafafa;
+background-repeat: repeat-x;
+border: 1px solid #bbb;
+background: -webkit-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+background: -moz-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+background: -o-linear-gradient(top,#ffffff 0,#eeeeee 100%);
+background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%);
+background-repeat: repeat-x;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#eeeeee,GradientType=0);
+-moz-border-radius: 5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+border-radius: 5px 5px 5px 5px;
+}
+
+.a_pinggu:hover {
+background: #eaf2ff;
+color: #000000;
+border: 1px solid #b7d2ff;
+filter: none;
+}
+
+
+
+

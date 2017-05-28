@@ -1,0 +1,140 @@
+/* DPI login CSS by lydia */
+body,html{height: 100%;}   
+body{
+	font-family: tahoma,Arial,ËÎÌå,sans-serif;
+	font-size: 12px;
+	color:#fff;
+	background-color:#044F95;
+}
+*{margin:0;padding:0;}
+img{border:none;}
+
+#outer {
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	display:table;
+}   
+#outer[id] {   
+    display: table;   
+    position: static;   
+    *position:relative;   
+    _position: static;   
+} 
+  
+#middle {   
+    position: absolute;   
+    top: 50%;   
+    left: 0;   
+    vertical-align:middle;   
+    display:table-cell;   
+    width:100%;   
+      
+      
+    *vertical-align:middle;   
+    *display:table-cell;   
+    *width:100%;   
+      
+      
+    _vertical-align:;   
+    _display:;   
+    _width:;   
+}   
+#middle[id] {   
+    display: table-cell;   
+    vertical-align: middle;   
+    position: static;   
+    top:50%;   
+    left:0;   
+    width:100%;   
+      
+      
+    *position:absolute;   
+      
+      
+    _position: ;   
+}   
+  
+#inner {   
+    position: relative;   
+    top: -50%;   
+    margin: 0 auto;   
+    text-align:center;   
+}   
+  
+#content{
+	width:1019px;
+	height:748px;
+	margin: 0 auto;
+	text-align:left;
+	background-image: url(images/bk_index.jpg);
+	background-repeat: no-repeat;
+} 
+
+#divform{
+	width:310px;
+	height:216px;
+	margin:0 auto;
+	padding-top:300px;
+}
+#divform ul{list-style:none;} 
+
+#divform ul li{
+	height:40px;
+	line-height:40px;
+	vertical-align:middle;
+	font-size:15px;
+	font-family:Î¢ÈíÑÅºÚ;
+	margin-bottom:15px;
+}
+
+.textfield_login{
+	width:254px;
+	height:36px;
+	line-height:36px;
+	background-image: url(images/bk_textfeild.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	border:0;
+	text-indent: 10px;
+	vertical-align:middle;
+}
+.textfield_login_s{
+	width:160px;
+	height:36px;
+	line-height:36px;
+	background-image: url(images/bk_textfeild_s.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	border:0;
+	text-indent: 10px;
+	vertical-align:middle;
+}
+#divform ul li img{
+	vertical-align:middle;
+}
+
+#divform ul li.button{
+	margin-left:50px;
+	display:inline;
+}
+
+.footer{
+	color:#B6CBEB;
+	text-align:center;
+	margin-top:150px;
+	font-size:9px;
+}
+
+
+.bottom{
+	border:none;
+	border-radius:4px;
+	background-image: url(images/button.gif);
+	background-repeat: no-repeat;
+	width:80px; height:24px; 
+	}
+
+
+

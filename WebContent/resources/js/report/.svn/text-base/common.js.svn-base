@@ -1,0 +1,167 @@
+/*区别于system/common.js 中value的取值方式，多一层.children().eq(0),jsp中将输入框放入<div> </idv> 中*/
+
+function getRptQueryParamArray(className){
+	//alert("."+className);
+	var paramArray = new Array();
+	$("."+className).each(function(){
+		var param = {};
+		param.type = $(this).children().eq(2).text();
+		param.value="";
+		if(param.type=='3'){
+			param.value= $.trim($(this).children().eq(0).children().eq(0).datebox('getValue'));
+		}else{
+			param.value= $.trim($(this).children().eq(0).children().eq(0).val());
+		}
+		if($.trim(param.value)!=""){
+			param.id = $(this).children().eq(1).text();
+			param.type = $(this).children().eq(2).text();
+			param.relation = $(this).children().eq(3).text();
+			paramArray.push(param);
+		}
+	});
+	return paramArray;
+}
+
+function getCityAndProduct(province,city,product,includeAll){
+	getCity(province,city,"CITY");
+	 getProducts(province,product,"TR_PRODUCENAME",includeAll);
+}
+
+function getCity(param1Id,param2Id,typeId){
+	var cit = "<option value=''>全部</option>";   
+	$.ajax({
+			async:false,
+			type: "post",
+			url: "/bestv/panorama/customerView/getMetaDicByTypeIdAndParentId",
+			data: "pid="+$("#"+param1Id).val()+"&typeId="+typeId,
+			success: function(msg){
+				var data = $.evalJSON(msg);
+				$.each(data, function(i, n){
+	               			 cit+="<option value="+n.dicId+">"+n.dicValue+"</option>" ;
+						});
+	           	$('#'+param2Id).empty().append(cit);  
+	           	
+			}
+		});	
+}
+
+function getPkgName(param1Id,param2Id){
+	var cit = "<option value=''>全部</option>";  
+	var areaid=$("#"+param1Id).val();
+	if($.trim(areaid)==""){
+		areaid="00";
+	}
+	$.ajax({
+			async:false,
+			type: "post",
+			url: "/bestv/panorama/customerView/getPkgName",
+			data: "areaId="+areaid,
+			success: function(msg){
+				var data = $.evalJSON(msg);
+				$.each(data, function(i, n){
+							if(n==null){
+								n='其他';
+							}
+	               			 cit+="<option value="+n+">"+n+"</option>" ;
+						});
+	           	$('#'+param2Id).empty().append(cit);  
+	           	
+			}
+		});	
+}
+
+function getProducts(param1Id,param2Id,typeId,includeAll){
+	var cit = "";  
+	if(includeAll){
+		cit = "<option value=''>全部</option>";  
+	}
+	$.ajax({
+			async:false,
+			type: "post",
+			url: "/bestv/panorama/customerView/getMetaDicByTypeIdAndParentId",
+			data: "pid="+$("#"+param1Id).val()+"&typeId="+typeId,
+			success: function(msg){
+				var data = $.evalJSON(msg);
+				$.each(data, function(i, n){
+	               			 cit+="<option value="+n.dicValue+">"+n.dicValue+"</option>" ;
+						});
+	           	$('#'+param2Id).empty().append(cit);  
+	           	
+			}
+		});	
+}
+
+
+
+function getProductByPkg(param1Id,param2Id,typeId,includeAll){
+	var cit = "";  
+	var areaId=$("#"+param1Id).val();
+	if($.trim(areaId)==""){
+		areaId="00";
+	}
+	if(includeAll){
+		cit = "<option value=''>全部</option>";  
+	}
+	if(areaId=="00"){
+		$('#'+param2Id).empty().append(cit);  
+	}else{
+		$.ajax({
+			async:false,
+			type: "post",
+			url: "/bestv/panorama/customerView/getProductByPkg",
+			data: "areaId="+areaId+"&pkgName="+typeId,
+			success: function(msg){
+				var data = $.evalJSON(msg);
+				$.each(data, function(i, n){
+	               			 cit+="<option value="+n+">"+n+"</option>" ;
+						});
+	           	$('#'+param2Id).empty().append(cit);  
+	           	
+			}
+		});	
+	}
+	
+}
+
+function getAllProducts(param1Id,param2Id,includeAll){
+	var cit = "";  
+	var areaId=$("#"+param1Id).val();
+	if($.trim(areaId)==""){
+		areaId="00";
+	}
+	if(includeAll){
+		cit = "<option value=''>全部</option>";  
+	}
+	if(areaId=="00"){
+		$('#'+param2Id).empty().append(cit);  
+	}else{
+		$.ajax({
+			async:false,
+			type: "post",
+			url: "/bestv/panorama/customerView/getAllProducts",
+			data: "areaId="+areaId,
+			success: function(msg){
+				var data = $.evalJSON(msg);
+				$.each(data, function(i, n){
+	               			 cit+="<option value="+n+">"+n+"</option>" ;
+						});
+	           	$('#'+param2Id).empty().append(cit);  
+	           	
+			}
+		});	
+	}
+	
+}
+
+function  setValueForSelectByText(id,text){
+	var count=$("#"+id).get(0).options.length;
+	for(var i=0;i<count;i++){
+	if($("#"+id).get(0).options[i].text == text)  
+	{
+		$("#"+id).get(0).options[i].selected = true;          
+	break;  
+	}  
+	}
+}
+
+

@@ -1,0 +1,116 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ include file="/jsp/common.jsp" %>
+	<head>
+	<script>
+		$(function(){	
+			$('#isLeaf').combobox({
+				onChange:function(){
+					showorhidden();
+					}
+				});
+			showorhidden(); 
+		});
+		
+		function showorhidden(){
+			var val = $('#isLeaf').combobox('getValue');
+			$("#conditionIdN").hide();
+			$("#conditionIdY").hide();
+			$("#conditionIdT").hide();
+			if(val=="N"){
+				$("#conditionIdN").show();
+			}else if(val=="Y"){
+				$("#conditionIdY").show();
+			}else if(val=="T"){
+				$("#conditionIdT").show();
+			}
+		}
+	</script>
+</head>
+<div class="grid_detail">
+	<form id="TMenu_form" method="post">
+		<input type="hidden" name="id" value="${o.id}"/>
+		<input type="hidden" id="validateValue" value="${o.parentId}"/>  
+		<input type="hidden" id="parentId" name="parentId"  value="${o.parentId}"/>
+		<input type="hidden" id="parentId" name="parentId"  value="${o.parentId}"/>
+		<ul>
+			<li>
+				<label>菜单名称</label>
+				<input type="text" class="easyui-validatebox" name="name" required="true"  value="${o.name}"/>
+			</li>	
+			<li>
+				<label>菜单描述</label>
+				<input type="text" class="easyui-validatebox" name="des"   value="${o.des}"/>
+			</li>
+			<li>
+				<label>菜单类型</label>
+				<select id="isLeaf" class="easyui-combobox"  name="isLeaf"  panelHeight="80px" style="width:122px;"  editable="false"  valueField="id"  textField="name" >
+					<option  value="N"  ${o.isLeaf=='N'?'selected':''}>父级菜单</option>
+					<option  value="Y"  ${o.isLeaf=='Y'?'selected':''}>子级菜单</option>	
+					<option  value="T"  ${o.isLeaf=='T'?'selected':''}>导航栏菜单</option>
+				</select>
+			</li>
+			<li>
+				<label>显示序列</label>
+				<input type="text" class="easyui-validatebox" name="orderRow" required="true"   value="${o.orderRow}"/>
+			</li>	
+			
+			<div id="conditionIdN" >
+				<li>
+					<label>上级菜单</label>
+					<select id="parentIdN" class="easyui-combobox"    panelHeight="80px" style="width:122px;"  editable="false"  valueField="id"  >
+						<option  value="">--请选择--</option>
+							<c:forEach items="${tabsList}" var="list">
+								<c:choose>
+	   				 				<c:when test="${list.id ==o.parentId}">
+	   				 					<option value="${list.id}" selected>${list.name}</option>
+	   								</c:when>
+	   								<c:otherwise>
+	   									<option value="${list.id}" >${list.name}</option>
+	   								</c:otherwise>
+	   							</c:choose>			
+							</c:forEach>
+					</select>
+				</li>	
+			</div>
+			<div id="conditionIdY" style="display:none;">
+				<li>
+					<label>上级菜单</label>
+					<select id="parentIdY" class="easyui-combobox"    panelHeight="80px" style="width:122px;"  valueField="id"   >
+						<option  value="">--请选择--</option>
+							<c:forEach items="${menuItem}" var="list">
+								<c:choose>
+	   				 				<c:when test="${list.id ==o.parentId}">
+	   				 					<option value="${list.id}" selected>${list.name}</option>
+	   								</c:when>
+	   								<c:otherwise>
+	   									<option value="${list.id}" >${list.name}</option>
+	   								</c:otherwise>
+	   							</c:choose>			
+							</c:forEach>
+					</select>
+				</li>
+				<li>
+					<label>打开方式</label>
+					<select id="openType" name="openType"  class="easyui-combobox"  panelHeight="80px" style="width:122px;">
+						<option value="">--请选择--</option>
+						<option value="1"  ${o.openType=='1'?'selected':''}>直接打开</option>
+   				 		<option value="2"  ${o.openType=='2'?'selected':''}>iframe方式</option>
+   				 		<option value="3"  ${o.openType=='3'?'selected':''}>iframe方式（跨应用)</option>
+								
+					</select> 
+				</li>	
+				<li>
+					<label>URL 地址</label>
+					<input type="text" id="url" class="easyui-validatebox" name="url"  value="${o.url}"/>
+				</li>
+			</div>
+			<div id="conditionIdT" style="display:none;">
+				<li>
+					<label>图标地址</label>
+					<input type="text" id="iconUrl" class="easyui-validatebox" name="iconUrl"  value="${o.iconUrl}"/>
+				</li>
+			</div>
+			
+		</ul>
+	</form>
+</div>

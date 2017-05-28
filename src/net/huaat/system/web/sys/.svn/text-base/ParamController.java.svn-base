@@ -1,0 +1,117 @@
+package net.huaat.system.web.sys;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import net.huaat.common.util.StringUtil;
+import net.huaat.common.web.BaseController;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import net.huaat.system.pojo.TParam;
+import net.huaat.system.service.sys.ParamService;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
+
+/**  
+ * @Description: 
+ * @author  generator
+ * @date 2012-11-22 02:00:15
+ * @version V1.0  
+ */
+@Controller
+@RequestMapping("/sys/param")
+public class ParamController extends BaseController{
+	
+	@Resource
+	ParamService paramService;
+	
+	@RequestMapping(value="/init",method=RequestMethod.GET)
+	public String init(HttpServletRequest request) {
+		//获取参数类型ID
+		String paramTypeId = request.getParameter("paramTypeId");
+		request.setAttribute("paramTypeId", paramTypeId);
+		return "system/param/paramList";
+	}
+	/**
+	 * 根据条件分页查询
+	 * @return
+	 */
+	@RequestMapping(value="/list",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> list(HttpServletRequest request) {
+		String paramTypeId=request.getParameter("paramTypeId");
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<TParam> list=null;
+		if(!StringUtil.isEmpty(paramTypeId)){
+			list = paramService.getParam(paramTypeId);	
+		}
+		map.put("rows", list);
+		return map ; 
+	}
+	/**
+	 * 打开明细
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/commit",method=RequestMethod.POST)
+	@ResponseBody
+	public Map detail(HttpServletRequest req) {
+		String inserted = req.getParameter("inserted");
+		String updated = req.getParameter("updated");	
+		Map<String,String> msg = new HashMap<String, String>();
+		//创建jsonConfig对象
+		JsonConfig config=new JsonConfig();
+		//设置过滤字段
+		config.setExcludes(new String[]{"updateTime"});
+		if(inserted != null){
+			String paramTypeId = req.getParameter("paramTypeId");
+		    List<TParam> listInserted = JSONArray.toList(JSONArray.fromObject(inserted,config),new TParam(),new JsonConfig());
+		    for(int i=0;listInserted!=null&&i<listInserted.size();i++){
+		    	listInserted.get(i).setId(UUID.randomUUID().toString());
+		    	listInserted.get(i).setParamTypeId(paramTypeId);
+		    	listInserted.get(i).setUpdateTime(new Date());
+				add(listInserted.get(i));
+			}
+			msg.put("status", "新增成功");
+		}
+		if(updated != null){
+			List<TParam> listUpdated =JSONArray.toList(JSONArray.fromObject(updated,config),new TParam(),new JsonConfig());
+			for(int i=0;listUpdated!=null&&i<listUpdated.size();i++){
+				listUpdated.get(i).setUpdateTime(new Date());
+				update(listUpdated.get(i));
+			}
+			msg.put("status", "修改成功");
+		}
+		return msg;
+	}
+	/***
+	 *Support JSON for EASYUI tree; 
+	 */
+	@RequestMapping(value="/paramTree",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String,String>> paramTree(String paramTypeId){
+		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
+		List<TParam> list=paramService.getParam(paramTypeId);
+		for(TParam param:list){
+			Map<String,String> node = new HashMap<String, String>();
+			node.put("id", param.getId());
+			node.put("text", param.getName());
+			node.put("iconCls", "icon-tip");
+			data.add(node);
+		}
+		return data;
+	}
+}
+

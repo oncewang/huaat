@@ -1,0 +1,30 @@
+package net.huaat.system.service.sys;
+
+import java.util.List;
+import java.util.Map;
+
+import net.huaat.system.pojo.TParam;
+
+/**  
+ * @Description: TODO
+ * @author hialin chen 
+ * @date 2012-11-23 下午1:40:46
+ * @version V1.0  
+ */
+public interface ParamService {		
+	
+	/**
+	 * 根据参数类型ID获得参数
+	 *
+	 */
+	public List<TParam> getParam(String paramTypeId);
+	/**
+	 * 通过参数类型ID获取参数的一个MAP<br>
+	 * key:参数名称 value:TParam
+	 * @param paramTypeId
+	 * @return
+	 */
+	public Map<String, TParam> getParamMap(String paramTypeId);
+	
+}
+

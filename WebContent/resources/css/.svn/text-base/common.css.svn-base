@@ -1,0 +1,29 @@
+img {
+	border: 0;
+}
+
+body {
+	font-size: 12px;
+	background-color: #F1F1F1;
+	font: normal 12px/1.5 Arial,'\5b8b\4f53';
+	color: #444;
+	font-family: arial,sans-serif;
+}
+
+img {
+	border: 0;
+	float: left;
+	padding-right: 4px;
+}
+
+a:link{text-decoration:none;color:#3e3e3e}
+a:visited{text-decoration:none;color:#3e3e3e}
+a:hover{text-decoration:underline;color:#ff6600}
+a:active{text-decoration:underline;color:#ff6600}
+.datagrid_change_col{background-repeat: no-repeat;background-image: url("sys/images/dirty.gif");}
+
+
+
+
+
+

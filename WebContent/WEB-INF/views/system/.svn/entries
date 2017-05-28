@@ -1,0 +1,123 @@
+10
+
+dir
+78
+http://10.50.107.65/svn/bas/%E4%BB%A3%E7%A0%81/bestv/WebContent/WEB-INF/views/system
+http://10.50.107.65/svn/bas
+
+
+
+2014-01-03T08:28:34.918132Z
+78
+huayuandev1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+149d7080-7249-4911-8bf8-c01458a18fd2
+
+param
+dir
+
+log
+dir
+
+role
+dir
+
+index.jsp
+file
+164
+
+
+
+2014-05-27T09:13:48.526011Z
+356dca46c93e5a314c7d83d9927d853e
+2014-05-29T02:00:50.450169Z
+164
+huayuandev1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4521
+
+login.jsp
+file
+131
+
+
+
+2014-01-13T08:41:08.598138Z
+a48eaa02b021ea761e13917be0532b29
+2014-01-24T09:20:48.668828Z
+131
+huayuandev1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2364
+
+menu
+dir
+
+generator
+dir
+
+logQuery
+dir
+
+quality
+dir
+
+base
+dir
+
+user
+dir
+
