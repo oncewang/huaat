@@ -17,8 +17,8 @@
 	loading in a web browser. Allows resources to be served out of any path that is reachable via Spring's Resource handling.
 	静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理,http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 	-->
-	<mvc:resources mapping="resources/**" location="/resources/"/>
-	<mvc:resources mapping="images/**" location="/images/"/>
+	<mvc:resources mapping="resources/**" location="/WebContent/resources/"/>
+	<mvc:resources mapping="images/**" location="/WebContent/resources/images/"/>
 
 	<!-- 
 	对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 
@@ -53,6 +53,7 @@
 	    <property name="messageConverters">
 	    	<list>
 	    		<ref bean="mappingJacksonHttpMessageConverter"/>
+
 	    	</list>
 	    </property>
 	</bean>
